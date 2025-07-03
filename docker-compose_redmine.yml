@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:14
+    container_name: redmine-db
+    restart: always
+    environment:
+      POSTGRES_DB: redmine
+      POSTGRES_USER: redmine
+      POSTGRES_PASSWORD: "dkswjswmd137*"
+    volumes:
+      - ./postgresql:/var/lib/postgresql/data
+    networks:
+      - proxy-tier
+
+  redmine:
+    image: custom-redmine:backup-2025070301
+    container_name: redmine-app
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - "8080:3000"
+    environment:
+      REDMINE_DB_POSTGRES: redmine-db
+      REDMINE_DB_DATABASE: redmine
+      REDMINE_DB_USERNAME: redmine
+      REDMINE_DB_PASSWORD: "dkswjswmd137*"    
+    volumes:
+      - ./redmine_files:/usr/src/redmine/files
+    networks:
+      - proxy-tier
+
+networks:
+  proxy-tier:
+    external: true
+
