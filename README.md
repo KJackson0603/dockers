@@ -9,3 +9,5 @@ ex.
 -> first, go in each /opt/sw/
 -> second, docker-compose up -d : active the containers(redmine-app, redmine-db)
 -> third, docker-compose down : inactive the containers(mattermost-app, mattermost-db)
+
+* postgreDB will be pulled the image file from dockerhub.
